@@ -6,7 +6,8 @@ public class CameraFollow : MonoBehaviour
 {
 
     //attributes
-    public Transform player; //to receive player object
+    //public Transform player; //to receive player object
+    //private float minimumCamDistance = 5f;
 
 
     // Start is called before the first frame update
@@ -23,7 +24,10 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
+        
+        
         //add to the camera position the player position on x axis
-        transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
+        //transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
+        
     }
 }
