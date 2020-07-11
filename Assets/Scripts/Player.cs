@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public bool isGrounded = false;
     public LayerMask whatIsGround;
     public float jumpForce = 80.0f;
+    public AudioClip audioJump;
 
 
     //suitcase controller attributes    
@@ -41,12 +42,16 @@ public class Player : MonoBehaviour
 
     void SuitcaseController(float walkingDistance)
     {       
-        print("Walking distance: " + walkingDistance); 
+        
+        //float decreaseDistance = 0f;
+
+        print("DISTANCIA VIAJADA: " + walkingDistance); 
 
         //define new suitcase checkpoint
-        if (walkingDistance >= (firstCheckpoint + checkpointInterval))
+        if (walkingDistance >= (firstCheckpoint + checkpointInterval) && getSuitcase == true)
         {
             firstCheckpoint += checkpointInterval;
+            print("CHECKPOINT DE RETORNO: " + firstCheckpoint);
         }
    
       
@@ -55,19 +60,21 @@ public class Player : MonoBehaviour
         //{
         
         //define distance to lost the suitcase
-        if (suitcaseLostPosition == 0f)
+        if (suitcaseLostPosition == 0f && getSuitcase == true)
         {
-
-            suitcaseLostPosition = firstCheckpoint + Random.Range(1, checkpointInterval + 1);
-            print("Posicao de perda da maleta: " + suitcaseLostPosition);
+            
+            suitcaseLostPosition = firstCheckpoint + Random.Range(checkpointInterval/2, checkpointInterval + 1);
+            print("POSICAO PERDA MALETA: " + suitcaseLostPosition);
 
         }
 
         //}
 
         //lose suitcase when reach suitcase lose position
-        if (walkingDistance >= suitcaseLostPosition)
+        if (walkingDistance >= suitcaseLostPosition && getSuitcase == true)
         {
+            print("DISTANCIA PERDA MALETA: " + walkingDistance);
+            //decreaseDistance = walkingDistance - suitcaseLostPosition;
             animator.SetBool("isSuitcase", false);                             
             getSuitcase = false;
             suitcaseLostPosition = 0f;
@@ -75,41 +82,14 @@ public class Player : MonoBehaviour
         }
 
 
-        if (walkingDistance <= 5f && getSuitcase == false)
+        if (walkingDistance <= (firstCheckpoint + 6f) && getSuitcase == false)        
         {
+            print("CHECKPOINT RETORNO: " + firstCheckpoint);
             suitcaseObject.SetActive(true);
-        }
-           
+            
+        }         
                 
-        /*if (suitcaseLostPosition > 0)// && suitcaseLostPosition < (firstCheckpoint + checkpointInterval))
-        {
-
-            if (walkingDistance >= suitcaseLostPosition && walkingDistance < (firstCheckpoint + checkpointInterval))
-            {
-
-                print("Posicao de retorno da maleta: " + firstCheckpoint);
-                animator.SetBool("isSuitcase", false);
-                        
-                //suitcaseLostPosition = 0f;
-                getSuitcase = false;
-            }
-            else
-            {
-                firstCheckpoint += checkpointInterval;
-                print("Proximo checkpoint: " + firstCheckpoint);             
-                       
-            }                
-                    
-        }          
-
-   
-        if (walkingDistance <= (suitcaseFirstPosition + 5f) && getSuitcase == false)
-        {
-                            
-            suitcaseObject.SetActive(true); 
-            //suitcaseObject.transform.Translate(firstCheckpoint, suitcaseObject.transform.position.y, suitcaseObject.transform.position.z);
-                            
-        } */
+        
       
     }
 
@@ -130,14 +110,10 @@ public class Player : MonoBehaviour
     }
 
     void Update()
-    {        
-        //if (getSuitcase == true)
-        //{
-            //suitcaseController receives player travel distance calculated
-        //    SuitcaseController(CalculateTravelDistance());            
-        //}
-        SuitcaseController(CalculateTravelDistance()); 
+    {     
+       
         Jump();
+        //KeepPlayerOnCameraViewZone();
     }
 
     void Awake()
@@ -147,20 +123,16 @@ public class Player : MonoBehaviour
     }
     
     void FixedUpdate()
-    {
+    {      
+        
         FlipPlayerHorizontally(MovePlayer());
-                   
-        //}
-
-                
-        //KeepPlayerOnTrack();      
-                                    
+        SuitcaseController(CalculateTravelDistance());                       
+          
     }
 
     public float CalculateTravelDistance()
     {           
-        travelDistance = transform.position.x - startPosition;
-        //distanceUI.text = $"Distance: {(transform.position.x - startPosition):##.##}";   
+        travelDistance = (transform.position.x - startPosition) + 1;        
         distanceUI.text = $"Distance: {(travelDistance):##.##}";
 
         return travelDistance;      
@@ -176,7 +148,9 @@ public class Player : MonoBehaviour
         //move player vertically
         float ymove = Input.GetAxis("Vertical") * speed * Time.deltaTime; //Variavel vertical         
         
-        transform.Translate(xmove, ymove, 0);        
+        transform.Translate(xmove, ymove, 0); 
+
+        Debug.Log("VALOR DE XMOVE: " + xmove);       
 
         return xmove;  
     }
@@ -190,18 +164,7 @@ public class Player : MonoBehaviour
             playerScale.x *= -1; 
             transform.localScale = playerScale;
         }
-    }
-
-    /*void KeepPlayerOnCameraViewZone()
-    {      
-        
-        //prevent player from leaving track vertically
-        if (transform.position.x > -8f || transform.position.y < 8f)
-        {
-            float xPosition = Mathf.Clamp(transform.position.x, -8f, 8f);
-            transform.position = new Vector2(xPosition, transform.position.y);
-        }
-    }*/
+    }    
 
     /*void KeepPlayerOnTrack()
     {      
@@ -213,9 +176,13 @@ public class Player : MonoBehaviour
         }
     }*/
 
+    void RunAudioClip(AudioClip audioObject)
+    {
+        AudioSource.PlayClipAtPoint(audioObject, transform.position);   
+    }
+
     void Jump()
     {    
-
         //check if groundCheck object is touching the ground and return true        
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);             
 
@@ -223,14 +190,14 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {               
             rb2d.AddForce(Vector2.up * jumpForce);
-            animator.SetBool("isJumping", true);           
+            animator.SetBool("isJumping", true);
+            RunAudioClip(audioJump); 
         }
         else
         {        
             //disable animation on landing to the ground           
             PlayerOnLanding();          
-        }   
-        
+        }           
     }
 
     public void PlayerOnLanding()
@@ -243,11 +210,12 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "suitcaseTag" && getSuitcase == false)
         {
-            //suitcase.transform.SetParent(this.transform);
+            //suitcaseObject.transform.SetParent(this.transform);
             animator.SetBool("isSuitcase", true);
             getSuitcase = true;
             other.gameObject.SetActive(false);            
         }
+        
     } 
 
 }

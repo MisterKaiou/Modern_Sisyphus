@@ -6,9 +6,8 @@ public class CameraFollow : MonoBehaviour
 {
 
     //attributes
-    //public Transform player; //to receive player object
-    //private float minimumCamDistance = 5f;
-
+    //public GameObject player; //to receive player object
+    
 
     // Start is called before the first frame update
     void Start()
@@ -30,4 +29,6 @@ public class CameraFollow : MonoBehaviour
         //transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
         
     }
+
+    
 }

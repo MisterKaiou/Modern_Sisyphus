@@ -6,9 +6,9 @@ using UnityEngine;
 public class SpawnerObstacle : MonoBehaviour
 {
     //Attributes
-    public GameObject obstacle1, obstacle2; 
-    public float obstacleHeigh;
-    public float rateSpawn;
+    public GameObject obstacle1, obstacle2; //to receive objects to be spawned
+    public float obstacleHeigh; //spawned object heigh
+    public float rateSpawn; //frequency of the spawned objects
     public int maxObstacle;    
     private float currentRateSpawn;    
 
@@ -39,31 +39,34 @@ public class SpawnerObstacle : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        //variable to store distance between player and spawned object     
-        //posX = transform.position.x - player.position.x;       
+    {        
+        //posX = transform.position.x - player.position.x;
+
         //get camera bounds size
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-        transform.position = new Vector2(screenBounds.x + 2f, obstacleHeigh);        
         
+        //make spawner object walk 2 positions in front of the camera bound
+        transform.position = new Vector2(screenBounds.x + 2f, obstacleHeigh);        
     }   
 
     void AddObstacle()
     {        
-                
-        //choose a spawn point to add the enemy randomly
-        var spawnPoint = new Vector2(transform.position.x, obstacleHeigh);
+        Vector2 spawnPoint;
+
+        //choose a spawn point to add the enemy randomly       
         var obstacleNumber = Random.Range(startRange, endRange + 1); //+1 to consider last number of the range in the random selection
 
         if (deployedObstacle == false)  
         {     
             if (obstacleNumber == 1)
             {
+                spawnPoint = new Vector2(transform.position.x, obstacleHeigh);
                 Instantiate(obstacle1, spawnPoint, Quaternion.identity);
                 
             } 
             else
             {
+                spawnPoint = new Vector2(transform.position.x + obstacleNumber, obstacleHeigh);
                 Instantiate(obstacle2, spawnPoint, Quaternion.identity);
             } 
 
