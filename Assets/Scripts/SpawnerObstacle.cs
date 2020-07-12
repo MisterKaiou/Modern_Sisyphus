@@ -48,7 +48,7 @@ public class SpawnerObstacle : MonoBehaviour
         //get camera bounds size
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
 
-        Debug.Log("BORDAS DA CAMERA: " + screenBounds);
+        //Debug.Log("BORDAS DA CAMERA: " + screenBounds);
         
         //make spawner object walk 2 positions in front of the camera bound
         transform.position = new Vector2(screenBounds.x + 2f, obstacleHeigh);

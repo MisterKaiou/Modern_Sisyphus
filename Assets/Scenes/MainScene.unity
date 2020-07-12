@@ -360,14 +360,13 @@ GameObject:
   m_Component:
   - component: {fileID: 296621543}
   - component: {fileID: 296621542}
-  - component: {fileID: 296621544}
   m_Layer: 0
   m_Name: Right Barrier
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &296621542
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -408,20 +407,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &296621544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296621541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92c624ef2b74ce5428d4c06042e8e6b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scPlayer: {fileID: 0}
-  isBarrierActive: 0
 --- !u!1 &372965311
 GameObject:
   m_ObjectHideFlags: 3
@@ -752,7 +737,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679595909}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f6df529486c506743bf474bcd89cc72b, type: 3}
@@ -841,12 +826,109 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &679595911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679595909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1e923655f3eaf54ab96bed7384966d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpointInterval: 10
+  suitcase: {fileID: 1986176447}
+  distanceUI: {fileID: 1406825390}
+  rightBarrier: {fileID: 296621541}
+  OnSuitcasePickedUp:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 679595914}
+        m_MethodName: OnSuitcasePickedUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnSuitcaseLost:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 679595914}
+        m_MethodName: OnSuitcaseLost
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &679595912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6511000542893403637, guid: 68dcc8d5b81b7594b9ba7420d792dd30,
     type: 3}
   m_PrefabInstance: {fileID: 6511000542213874301}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &679595913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679595909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa0bc90fb6e396479ff300e48e9341c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_JumpForce: 400
+  m_MovementSmoothing: 0.05
+  m_AirControl: 1
+  m_WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 529
+  m_GroundCheck: {fileID: 1664359433}
+  jumpSound: {fileID: 8300000, guid: 8ddb0c8bb98d5e6469843daebb1db467, type: 3}
+  OnLandEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 679595914}
+        m_MethodName: OnLandEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &679595914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679595909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b516c2fc0e91de42a55d874839c6923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 679595913}
+  suitcaseController: {fileID: 679595911}
+  hasSuitcase: 0
+  justLostSuitcase: 0
+  runSpeed: 30
+  badWordsSprite: {fileID: 8733635874715044936, guid: a7691d0de26607a4cbf12db1ee50fe54,
+    type: 3}
 --- !u!1 &868591491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,6 +2014,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1664359433 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6511000542596246555, guid: 68dcc8d5b81b7594b9ba7420d792dd30,
+    type: 3}
+  m_PrefabInstance: {fileID: 6511000542213874301}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1897659116
 GameObject:
   m_ObjectHideFlags: 0
