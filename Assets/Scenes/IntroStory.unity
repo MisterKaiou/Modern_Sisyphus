@@ -739,8 +739,8 @@ GameObject:
   - component: {fileID: 1655614336}
   - component: {fileID: 1655614335}
   - component: {fileID: 1655614334}
-  - component: {fileID: 1655614333}
   - component: {fileID: 1655614332}
+  - component: {fileID: 1655614333}
   m_Layer: 0
   m_Name: SkipButton
   m_TagString: Untagged
