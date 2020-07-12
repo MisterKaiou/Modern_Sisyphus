@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour
 {
-   void OnMouseDown()
+    void OnMouseDown()
    {
-	    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+	    SceneManager.LoadScene("IntroStory");
    }
 }

@@ -7,6 +7,6 @@ public class Credits : MonoBehaviour
 {
 	void OnMouseDown()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+		SceneManager.LoadScene("Credits");
 	}
 }

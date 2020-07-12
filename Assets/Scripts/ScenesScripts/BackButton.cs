@@ -7,6 +7,6 @@ public class BackButton : MonoBehaviour
 {
    void OnMouseDown()
 	{
-		SceneManager.LoadScene(0);
+		SceneManager.LoadScene("MainMenu");
 	}
 }

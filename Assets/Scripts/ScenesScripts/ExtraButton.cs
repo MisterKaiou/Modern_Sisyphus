@@ -7,6 +7,6 @@ public class ExtraButton : MonoBehaviour
 {
  void OnMouseDown()
 	{
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+		SceneManager.LoadScene("Extra");
 	}
 }
