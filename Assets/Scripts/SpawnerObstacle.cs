@@ -8,24 +8,25 @@ public class SpawnerObstacle : MonoBehaviour
     //Attributes
     public GameObject obstacle1, obstacle2; //to receive objects to be spawned
     public float obstacleHeigh; //spawned object heigh
-    public float rateSpawn; //frequency of the spawned objects
-    public int maxObstacle;    
+    public float rateSpawn = 1f; //frequency of the spawned objects
+    public int maxObstacle = 3;   
     private float currentRateSpawn;    
 
     public int startRange = 1; //to be used to select enemy randomly
     public int endRange = 2; //to be used to select enemy randomly   
 
-    public float spawnTime; //to control interval between obstacle creation      
+    public float spawnTime = 5f; //to control interval between obstacle creation  
 
-    private float posX; 
-
-    public bool deployedObstacle = false;
-
-    
+    public bool deployedObstacle = false;    
 
     private Vector2 screenBounds;
 
-    
+    public List <GameObject> objectList;
+
+    [SerializeField]
+    private GameObject obstacleCleaner;
+
+
 
 
 
@@ -33,45 +34,90 @@ public class SpawnerObstacle : MonoBehaviour
     void Start()
     {    
        
-        InvokeRepeating("AddObstacle", rateSpawn, spawnTime); 
+        //InvokeRepeating("AddObstacle", 1, 1); 
+        objectList = new List<GameObject>(maxObstacle);
                
     }
 
     // Update is called once per frame
     void Update()
-    {        
-        //posX = transform.position.x - player.position.x;
+    {         
 
         //get camera bounds size
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+
+        Debug.Log("BORDAS DA CAMERA: " + screenBounds);
         
         //make spawner object walk 2 positions in front of the camera bound
-        transform.position = new Vector2(screenBounds.x + 2f, obstacleHeigh);        
+        transform.position = new Vector2(screenBounds.x + 2f, obstacleHeigh);
+
+        //obstacleCleaner.transform.position = new Vector2(screenBounds.x - 1f, obstacleHeigh);
+
+        CleanObjectList();       
+
     }   
 
-    void AddObstacle()
-    {        
-        Vector2 spawnPoint;
-
-        //choose a spawn point to add the enemy randomly       
-        var obstacleNumber = Random.Range(startRange, endRange + 1); //+1 to consider last number of the range in the random selection
-
-        if (deployedObstacle == false)  
-        {     
-            if (obstacleNumber == 1)
+    void CleanObjectList()
+    {
+        foreach (var i in objectList)
+        {
+            if (obstacleCleaner.transform.position.x > i.transform.position.x)
             {
-                spawnPoint = new Vector2(transform.position.x, obstacleHeigh);
-                Instantiate(obstacle1, spawnPoint, Quaternion.identity);
-                
-            } 
-            else
+                objectList.Remove(i);
+            }
+
+            if (objectList.Count == 0)
             {
-                spawnPoint = new Vector2(transform.position.x + obstacleNumber, obstacleHeigh);
-                Instantiate(obstacle2, spawnPoint, Quaternion.identity);
-            } 
+                deployedObstacle = false;
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
+
+        if (deployedObstacle == false)
+        {
+            for (int i = 0; i < maxObstacle; i++)
+            {
+                AddObstacle();
+
+            }
 
             deployedObstacle = true;
-        }        
+        }
+    }
+
+    void AddObstacle()
+    {                  
+        GameObject obstacle;
+
+        //select spawnPoint randomly to instantiate obstacles
+        var spawnPoint = new Vector2(transform.position.x + Random.Range(startRange, maxObstacle + endRange), obstacleHeigh); //+1 to consider last number of the range in the random selection
+
+        //choose a spawn point to add the enemy randomly              
+        int obstacleNumber = Random.Range(startRange, endRange + 1); //+1 to consider last number of the range in the random selection               
+                    
+        if (obstacleNumber == 1)
+        {
+            //spawnPoint = new Vector2(transform.position.x, obstacleHeigh);
+            obstacle = Instantiate(obstacle1, spawnPoint, Quaternion.identity);
+
+        } 
+        else
+        {
+            //spawnPoint = new Vector2(transform.position.x + obstacleNumber, obstacleHeigh);
+            obstacle = Instantiate(obstacle2, spawnPoint, Quaternion.identity);
+        }   
+
+        objectList.Add(obstacle);
+
+        foreach (var i in objectList)
+        {
+            
+            Debug.Log(i);
+        }           
                
     }
+
 }
