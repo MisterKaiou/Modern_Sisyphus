@@ -5,35 +5,37 @@ using UnityEngine;
 public class ScreenBarrierControl : MonoBehaviour
 {
 
-    //attributes
-
-
-    
-
+    //attributes  
 
     public Player scPlayer; //to access Player script
     public bool isBarrierActive;
+    
 
-    //private GameObject rightBarrier;// leftBarrier;
+    private float initialBarrierPosition;
+
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
-        isBarrierActive = true;        
+        //initialBarrierPosition = transform.position.x;
+        //isBarrierActive = true;        
         scPlayer = GameObject.Find("Player").GetComponent<Player>(); //to get player script component  
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-        if (isBarrierActive == false && scPlayer.transform.position.x <= 3f)
+        
+        if (!isBarrierActive && scPlayer.transform.position.x <= 3f)
         {  
-            Debug.Log("OLHA EU AQUI OH");          
+               
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
+           
             isBarrierActive = true;
-        }       
+        }        
+            
 
         
     }
@@ -52,7 +54,7 @@ public class ScreenBarrierControl : MonoBehaviour
 
     private bool IsPlayerHoldingSuitcase()    
     {
-        if (scPlayer.getSuitcase == true)
+        if (scPlayer.getSuitcase)
         {
             return true;
         }

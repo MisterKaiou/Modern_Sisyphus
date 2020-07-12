@@ -30,14 +30,16 @@ public class Player : MonoBehaviour
     public bool isGrounded = false;
     public LayerMask whatIsGround;
     public float jumpForce = 80.0f;
-    public AudioClip audioJump;
+    public AudioClip audioJump, audioSuitcaseGone, audioGetSuitcase;
 
 
     //suitcase controller attributes    
     public float firstCheckpoint;
-    public int checkpointInterval = 10;   
+    public int checkpointInterval = 20;   
 
     private float suitcaseFirstPosition = 0f, suitcaseLostPosition = 0f;
+
+    public GameObject badwords;
 
 
     void SuitcaseController(float walkingDistance)
@@ -52,30 +54,30 @@ public class Player : MonoBehaviour
         {
             firstCheckpoint += checkpointInterval;
             print("CHECKPOINT DE RETORNO: " + firstCheckpoint);
-        }
-   
+        }   
       
-        //generate suitcase lost position only if travel distance is le
-        //if (walkingDistance < (firstCheckpoint + checkpointInterval) && suitcaseLostPosition == 0f)
-        //{
         
         //define distance to lost the suitcase
         if (suitcaseLostPosition == 0f && getSuitcase == true)
-        {
-            
-            suitcaseLostPosition = firstCheckpoint + Random.Range(checkpointInterval/2, checkpointInterval + 1);
-            print("POSICAO PERDA MALETA: " + suitcaseLostPosition);
+        {            
+            suitcaseLostPosition = firstCheckpoint + Random.Range(checkpointInterval/2, checkpointInterval + 1);          
 
         }
 
-        //}
+        
 
         //lose suitcase when reach suitcase lose position
         if (walkingDistance >= suitcaseLostPosition && getSuitcase == true)
         {
             print("DISTANCIA PERDA MALETA: " + walkingDistance);
             //decreaseDistance = walkingDistance - suitcaseLostPosition;
-            animator.SetBool("isSuitcase", false);                             
+            
+            animator.SetBool("isSuitcase", false);
+            
+            //call badwords balloon
+            Instantiate(badwords, new Vector2(this.transform.position.x + 0.5f, this.transform.position.y + 0.5f), Quaternion.identity); 
+            RunAudioClip(audioSuitcaseGone);
+
             getSuitcase = false;
             suitcaseLostPosition = 0f;
 
@@ -133,17 +135,29 @@ public class Player : MonoBehaviour
     public float CalculateTravelDistance()
     {           
         travelDistance = (transform.position.x - startPosition) + 1;        
-        distanceUI.text = $"Distance: {(travelDistance):##.##}";
+        //distanceUI.text = $"Distance: {(travelDistance):##.##}";
+        distanceUI.text = "Distance: " + (int)travelDistance;
 
         return travelDistance;      
     }
 
     float MovePlayer()
     {
-        //move player horizontally            
+        /*//move player horizontally            
         float xmove = Input.GetAxis("Horizontal") * speed * Time.deltaTime; // Variavel Vertical
         
+        animator.SetFloat("Speedx", Mathf.Abs(xmove)); //add speed to invoke player walking animation*/
+
+        //move player horizontally           
+        float xmove = 0;
+       
+        if(Input.GetAxis("Horizontal") > 0 && !getSuitcase)
+            xmove = 0;
+        else
+            xmove = Input.GetAxis("Horizontal") * speed * Time.deltaTime; // Variavel Horizontal
+
         animator.SetFloat("Speedx", Mathf.Abs(xmove)); //add speed to invoke player walking animation
+
 
         //move player vertically
         float ymove = Input.GetAxis("Vertical") * speed * Time.deltaTime; //Variavel vertical         
@@ -213,6 +227,7 @@ public class Player : MonoBehaviour
             //suitcaseObject.transform.SetParent(this.transform);
             animator.SetBool("isSuitcase", true);
             getSuitcase = true;
+            RunAudioClip(audioGetSuitcase);
             other.gameObject.SetActive(false);            
         }
         

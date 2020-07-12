@@ -5,13 +5,11 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
 
-
     //Attributes
     private Vector2 screenBounds;
     private SpawnerObstacle scSpawnerObstacle;
     public Transform player;
-
-    private int countObjects = 0;
+    
 
     private BoxCollider2D bc2d;
 
@@ -30,13 +28,17 @@ public class Obstacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        
+        if (scSpawnerObstacle.obstacleCleaner.transform.position.x > transform.position.x)
+            {
+                scSpawnerObstacle.countObjects--;
+                Destroy(this.gameObject);
+            }
     }
 
     //When the obstacle is out of screen it is destroyed
-    void OnBecameInvisible()
+    /*void OnBecameInvisible()
     {        
         
         Destroy(gameObject);
-    }
+    }*/
 }

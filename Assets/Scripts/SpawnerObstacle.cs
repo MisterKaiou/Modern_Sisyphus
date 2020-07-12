@@ -21,10 +21,12 @@ public class SpawnerObstacle : MonoBehaviour
 
     private Vector2 screenBounds;
 
-    public List <GameObject> objectList;
+    //public List <GameObject> objectList;
 
-    [SerializeField]
-    private GameObject obstacleCleaner;
+    //[SerializeField]
+    public GameObject obstacleCleaner;
+
+    public int countObjects = 0;
 
 
 
@@ -35,7 +37,7 @@ public class SpawnerObstacle : MonoBehaviour
     {    
        
         //InvokeRepeating("AddObstacle", 1, 1); 
-        objectList = new List<GameObject>(maxObstacle);
+        //objectList = new List<GameObject>(maxObstacle);
                
     }
 
@@ -53,12 +55,17 @@ public class SpawnerObstacle : MonoBehaviour
 
         //obstacleCleaner.transform.position = new Vector2(screenBounds.x - 1f, obstacleHeigh);
 
-        CleanObjectList();       
+        //CleanObjectList();  
+        if (countObjects == 0)
+        {
+            deployedObstacle = false;
+        }     
 
     }   
 
-    void CleanObjectList()
+    /*void CleanObjectList()
     {
+
         foreach (var i in objectList)
         {
             if (obstacleCleaner.transform.position.x > i.transform.position.x)
@@ -69,13 +76,14 @@ public class SpawnerObstacle : MonoBehaviour
             if (objectList.Count == 0)
             {
                 deployedObstacle = false;
+                break;
             }
         }
-    }
+    }*/
 
     void FixedUpdate()
     {
-
+        //check if there are no obstacles deployed to instantiate new ones
         if (deployedObstacle == false)
         {
             for (int i = 0; i < maxObstacle; i++)
@@ -110,13 +118,14 @@ public class SpawnerObstacle : MonoBehaviour
             obstacle = Instantiate(obstacle2, spawnPoint, Quaternion.identity);
         }   
 
-        objectList.Add(obstacle);
+        countObjects++;
+        //objectList.Add(obstacle);
 
-        foreach (var i in objectList)
+        /*foreach (var i in objectList)
         {
             
             Debug.Log(i);
-        }           
+        }*/           
                
     }
 
