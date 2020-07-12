@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     private GameObject badWords;
+    public AudioClip audioSuitcaseGone, audioGetSuitcase;
 
     private void Start()
     {
@@ -83,6 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         animator.SetBool("hasSuitcase", true);
         hasSuitcase = true;
+		AudioSource.PlayClipAtPoint(audioGetSuitcase, transform.position);
     }
 
     /// <summary>
@@ -93,5 +95,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("hasSuitcase", false);
         PopBadWordsBallon();
         hasSuitcase = false;
+		AudioSource.PlayClipAtPoint(audioSuitcaseGone, transform.position);
     }
 }

@@ -11,9 +11,7 @@ public class ScreenBarrierControl : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        //initialBarrierPosition = transform.position.x;
-        //isBarrierActive = true;        
+    {     
         player = GameObject.Find("Player")
                            .GetComponent<PlayerController>(); //to get player script component  
     }
@@ -21,12 +19,9 @@ public class ScreenBarrierControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (!isBarrierActive && player.transform.position.x <= 3f)
         {  
-               
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
-           
             isBarrierActive = true;
         }
     }
@@ -35,7 +30,6 @@ public class ScreenBarrierControl : MonoBehaviour
     {    
         if (other.gameObject.tag == "playerTag" && IsPlayerHoldingSuitcase())
         {
-            Debug.Log("PASSEI POR AKI");
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             isBarrierActive = false;
         }        

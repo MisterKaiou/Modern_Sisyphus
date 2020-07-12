@@ -45,33 +45,21 @@ public class Player : MonoBehaviour
     void SuitcaseController(float walkingDistance)
     {       
         
-        //float decreaseDistance = 0f;
-
-        print("DISTANCIA VIAJADA: " + walkingDistance); 
-
         //define new suitcase checkpoint
         if (walkingDistance >= (firstCheckpoint + checkpointInterval) && getSuitcase == true)
         {
             firstCheckpoint += checkpointInterval;
-            print("CHECKPOINT DE RETORNO: " + firstCheckpoint);
         }   
       
-        
         //define distance to lost the suitcase
         if (suitcaseLostPosition == 0f && getSuitcase == true)
         {            
             suitcaseLostPosition = firstCheckpoint + Random.Range(checkpointInterval/2, checkpointInterval + 1);          
-
         }
-
-        
 
         //lose suitcase when reach suitcase lose position
         if (walkingDistance >= suitcaseLostPosition && getSuitcase == true)
         {
-            print("DISTANCIA PERDA MALETA: " + walkingDistance);
-            //decreaseDistance = walkingDistance - suitcaseLostPosition;
-            
             animator.SetBool("isSuitcase", false);
             
             //call badwords balloon
@@ -80,21 +68,13 @@ public class Player : MonoBehaviour
 
             getSuitcase = false;
             suitcaseLostPosition = 0f;
-
         }
-
 
         if (walkingDistance <= (firstCheckpoint + 6f) && getSuitcase == false)        
         {
-            print("CHECKPOINT RETORNO: " + firstCheckpoint);
-            suitcaseObject.SetActive(true);
-            
-        }         
-                
-        
-      
+            suitcaseObject.SetActive(true);      
+        }      
     }
-
 
     // Start is called before the first frame update
     void Start()

@@ -51,11 +51,6 @@ public class SuitcaseController : MonoBehaviour
     {
         walkingDistance = CalculateTravelDistance();
 
-        print("DISTANCIA VIAJADA: " + walkingDistance);
-        print("CHECKPOINT DE RETORNO: " + checkpoint);
-        print("POSICAO PERDA MALETA: " + suitcaseLostPosition);
-        print("DISTANCIA PERDA MALETA: " + walkingDistance);
-
         //define new suitcase checkpoint
         if (walkingDistance >= (checkpoint + checkpointInterval) && 
             playerController.hasSuitcase == true)
@@ -85,7 +80,7 @@ public class SuitcaseController : MonoBehaviour
         suitcaseLastPosition = transform.position.x;
 
         suitcase.SetActive(true);
-        suitcase.transform.position = new Vector3(checkpoint,
+        suitcase.transform.position = new Vector3(startPosition,
                                                   suitcase.transform.position.y);
 
         if (rightBarrier.activeInHierarchy == false)
@@ -118,7 +113,7 @@ public class SuitcaseController : MonoBehaviour
         if (playerController.hasSuitcase)
         {
             travelDistance = (transform.position.x - startPosition) + 1;
-            distanceUI.text = $"Distance: {(travelDistance):##.##}";
+            distanceUI.text = "Distance: " + (int)travelDistance;
         }
 
         return travelDistance;

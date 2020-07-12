@@ -5,11 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class CameraFollow : MonoBehaviour
 {
-
-    //attributes
-    //public GameObject player; //to receive player object
-    
-
     // Start is called before the first frame update
     void Start()
     {       
@@ -27,12 +22,7 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
-        
-        
         //add to the camera position the player position on x axis
-        //transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
-        
+        //transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);  
     }
-
-    
 }

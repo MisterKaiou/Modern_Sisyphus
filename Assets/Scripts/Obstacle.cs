@@ -10,7 +10,6 @@ public class Obstacle : MonoBehaviour
     private SpawnerObstacle scSpawnerObstacle;
     public Transform player;
     
-
     private BoxCollider2D bc2d;
 
     // Start is called before the first frame update
@@ -29,16 +28,9 @@ public class Obstacle : MonoBehaviour
     void Update()
     {   
         if (scSpawnerObstacle.obstacleCleaner.transform.position.x > transform.position.x)
-            {
-                scSpawnerObstacle.countObjects--;
-                Destroy(this.gameObject);
-            }
+        {
+            scSpawnerObstacle.countObjects--;
+            Destroy(this.gameObject);
+        }
     }
-
-    //When the obstacle is out of screen it is destroyed
-    /*void OnBecameInvisible()
-    {        
-        
-        Destroy(gameObject);
-    }*/
 }
