@@ -33,8 +33,23 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+        //horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
+        //animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
+        /*if (Input.GetButtonDown("Jump"))
+        {
+            animator.SetBool("isJumping", true);
+            jump = true;
+        }*/
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        //ADDED
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
         if (Input.GetButtonDown("Jump"))
@@ -42,13 +57,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isJumping", true);
             jump = true;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+
         controller.Movement(horizontalMove * Time.deltaTime, jump);
 
+        
         if (badWords != null)
         {
             badWords.transform.position = new Vector3(transform.position.x + 0.6f,

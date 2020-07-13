@@ -57,11 +57,17 @@ public class SuitcaseController : MonoBehaviour
             checkpoint += checkpointInterval;
         }
 
-        if (suitcaseLostPosition == 0f &&
+        /*if (suitcaseLostPosition == 0f &&
             playerController.hasSuitcase == true)
         {
             suitcaseLostPosition = Random.Range(startPosition,
                                                 startPosition + checkpointInterval * 3 + 1);
+        }*/
+
+        //define distance to lost the suitcase
+        if (suitcaseLostPosition == 0f && playerController.hasSuitcase == true)
+        {            
+            suitcaseLostPosition = checkpoint + Random.Range(checkpointInterval/2, checkpointInterval + 1);          
         }
 
         //lose suitcase when reach suitcase lose position
@@ -75,6 +81,7 @@ public class SuitcaseController : MonoBehaviour
     private void RemoveSuitcase()
     {
         OnSuitcaseLost.Invoke();
+        //AudioSource.PlayClipAtPoint(playerController.audioSuitcaseGone, transform.position);
         suitcaseLostPosition = 0f;
 
         suitcase.SetActive(true);
@@ -106,7 +113,7 @@ public class SuitcaseController : MonoBehaviour
                                                       transform.position.y);
     }
 
-    private float CalculateTravelDistance()
+    public float CalculateTravelDistance()
     {
         if (playerController.hasSuitcase)
         {
