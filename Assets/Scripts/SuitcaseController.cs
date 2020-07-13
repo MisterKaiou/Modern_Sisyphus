@@ -16,7 +16,6 @@ public class SuitcaseController : MonoBehaviour
     private float startPosition;
     private float checkpoint;
     private float travelDistance = 0f;
-    private float suitcaseLastPosition = 0f;
     private float suitcaseLostPosition = 0f;
     private PlayerController playerController;
 
@@ -61,8 +60,8 @@ public class SuitcaseController : MonoBehaviour
         if (suitcaseLostPosition == 0f &&
             playerController.hasSuitcase == true)
         {
-            suitcaseLostPosition = Random.Range(suitcaseLastPosition,
-                                                suitcaseLastPosition + checkpointInterval * 3 + 1);
+            suitcaseLostPosition = Random.Range(startPosition,
+                                                startPosition + checkpointInterval * 3 + 1);
         }
 
         //lose suitcase when reach suitcase lose position
@@ -77,7 +76,6 @@ public class SuitcaseController : MonoBehaviour
     {
         OnSuitcaseLost.Invoke();
         suitcaseLostPosition = 0f;
-        suitcaseLastPosition = transform.position.x;
 
         suitcase.SetActive(true);
         suitcase.transform.position = new Vector3(startPosition,
