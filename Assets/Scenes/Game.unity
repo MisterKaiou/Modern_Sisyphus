@@ -893,7 +893,7 @@ MonoBehaviour:
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 529
+    m_Bits: 567
   m_GroundCheck: {fileID: 1664359433}
   jumpSound: {fileID: 8300000, guid: 8ddb0c8bb98d5e6469843daebb1db467, type: 3}
   OnLandEvent:
