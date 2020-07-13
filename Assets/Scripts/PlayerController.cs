@@ -12,18 +12,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public CharacterController controller;
     /// <summary>
-    /// Suitcase behaviour script
-    /// </summary>
-    public SuitcaseController suitcaseController;
-    /// <summary>
     /// Defines if the player currently have it's suitcase
     /// </summary>
     public bool hasSuitcase = false;
     
     protected float horizontalMove = 0f;
     protected bool jump = false;
-    [SerializeField] protected float runSpeed = 4.0f;
 
+    [SerializeField] protected float runSpeed;
     [SerializeField] private GameObject badWordsSprite;
 
     private Animator animator;

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: God
+  m_Name: Goddess_Idle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,10 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 2258068275893460130, guid: 7b7d5b2c94e5f944aa17beb7bf4f5653,
+      value: {fileID: -824226770663023708, guid: e4f68c5be65985243bc891b10b825350,
         type: 3}
-    - time: 0.33333334
-      value: {fileID: -4335123173310027183, guid: 7b7d5b2c94e5f944aa17beb7bf4f5653,
+    - time: 0.2
+      value: {fileID: -5879722751160826279, guid: e4f68c5be65985243bc891b10b825350,
+        type: 3}
+    - time: 0.4
+      value: {fileID: 8655137855285837031, guid: e4f68c5be65985243bc891b10b825350,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -44,14 +47,15 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 2258068275893460130, guid: 7b7d5b2c94e5f944aa17beb7bf4f5653, type: 3}
-    - {fileID: -4335123173310027183, guid: 7b7d5b2c94e5f944aa17beb7bf4f5653, type: 3}
+    - {fileID: -824226770663023708, guid: e4f68c5be65985243bc891b10b825350, type: 3}
+    - {fileID: -5879722751160826279, guid: e4f68c5be65985243bc891b10b825350, type: 3}
+    - {fileID: 8655137855285837031, guid: e4f68c5be65985243bc891b10b825350, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.4166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

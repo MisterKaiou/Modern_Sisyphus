@@ -113,7 +113,7 @@ public class SuitcaseController : MonoBehaviour
         if (playerController.hasSuitcase)
         {
             travelDistance = (transform.position.x - startPosition) + 1;
-            distanceUI.text = "Distance: " + (int)travelDistance;
+            distanceUI.text = $"Distance: {(int)travelDistance}";
         }
 
         return travelDistance;
