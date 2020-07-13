@@ -934,7 +934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_JumpForce: 400
   m_MovementSmoothing: 0.05
-  m_AirControl: 0
+  m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 567
@@ -968,7 +968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 679595913}
   hasSuitcase: 0
-  runSpeed: 60
+  runSpeed: 45
   badWordsSprite: {fileID: 8733635874715044936, guid: a7691d0de26607a4cbf12db1ee50fe54,
     type: 3}
   audioSuitcaseGone: {fileID: 8300000, guid: 96280228892c300469a2d81686b29d96, type: 3}
