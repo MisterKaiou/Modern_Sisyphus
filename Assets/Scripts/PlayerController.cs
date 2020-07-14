@@ -25,10 +25,15 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private GameObject badWords;
     public AudioClip audioSuitcaseGone, audioGetSuitcase;
+  
+
+   
+
 
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        
     }
 
     private void FixedUpdate()
@@ -104,6 +109,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("hasSuitcase", false);
         PopBadWordsBallon();
         hasSuitcase = false;
-		AudioSource.PlayClipAtPoint(audioSuitcaseGone, transform.position);
+		AudioSource.PlayClipAtPoint(audioSuitcaseGone, transform.position);        
+
     }
 }
